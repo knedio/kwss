@@ -256,12 +256,19 @@
             waterconsumed = waterconsumed ? waterconsumed : 1;
 
             var amount_pay = (waterconsumed-prev_water_consumed);
+            var amount_pay_temp = (waterconsumed-prev_water_consumed);
+
             if (amount_pay > min_cubic_meter) {
                 amount_pay -= min_cubic_meter;
             }else{
                 amount_pay = 1;
             }
-            amount_pay_total = (amount_pay * cubic_meter_rate + min_peso_rate);
+            if (amount_pay_temp  <= min_cubic_meter) {
+                amount_pay_total = min_peso_rate;
+            }else{
+                amount_pay_total = (amount_pay * cubic_meter_rate + min_peso_rate);
+            }
+
             $('#reading_info #reading_amount').val(amount_pay_total.toFixed(2));
 
         });

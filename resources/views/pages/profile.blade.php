@@ -52,7 +52,6 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="id" value="{{$record->id}}">
                 <input type="hidden" name="session_account_type" id="session_account_type" value="{{session('account_type')}}">
-                @endif --}}
                 <div class="form-group">
                     <label for="username">Account Type :</label>
                     <input type="text" readonly class="form-control" name="account_type" id="account_type" value="{{$record->account_type}}" placeholder="Username">
