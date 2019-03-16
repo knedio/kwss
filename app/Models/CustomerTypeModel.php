@@ -36,6 +36,16 @@ class CustomerTypeModel extends Model
         return $tbl_id;
     }
 
+    public function get_by_zone($zone){
+        $result = \DB::table($this->tbl_name)
+        ->where($this->prefix.'zone',$zone)
+        ->first();
+
+        $tbl_id = $result->custype_id;
+
+        return $tbl_id;
+    }
+
     public function get_count()
     {
         $result = \DB::table($this->tbl_name)->count();

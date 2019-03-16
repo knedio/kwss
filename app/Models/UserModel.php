@@ -93,7 +93,6 @@ class UserModel extends Model
                     $prefix.'lastname'      => $lastname,
                     $prefix.'mobile_number' => $mobile_number,
                     $prefix.'address'       => $address,
-                    $prefix.'zone'          => $zone,
                     $prefix.'created'       => date('Y-m-d H:i:s')
                 ];
             }

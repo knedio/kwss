@@ -125,10 +125,6 @@ class UserController extends Controller
             'mobile_number' => $mobile_number,
             'address'       => $address
         ];
-        if($account_type == 'Customer'){
-            $zone = $request->zone;
-            $data['zone'] = $zone;
-        }
         $user_info = $this->userM->add_user($data);
         if($account_type == 'Customer'){
             // printx($request->custype_id);
@@ -376,23 +372,18 @@ class UserController extends Controller
                     'mobile_number' => $mobile_number,
                     'address'       => $address
                 ];
-                if($account_type == 'Customer'){
-                    $zone = $value->zone;
-                    $data['zone'] = $zone;
-                }
                 $user_info = $this->userM->add_user($data);
                 if($account_type == 'Customer'){
-                    $data_meter = [];
-                    $custype_type = explode(',', $value->custype_type);
-                    $meter_serial_no = explode(',', $value->meter_serial_no);
-                    $meter_model = explode(',', $value->meter_model);
-                    $meter_duedate = explode(',', $value->meter_duedate);
-                    $meter_address = explode(',', $value->meter_address);
+                    $zone = explode('&&', $value->zone);
+                    $meter_serial_no = explode('&&', $value->meter_serial_no);
+                    $meter_model = explode('&&', $value->meter_model);
+                    $meter_duedate = explode('&&', $value->meter_duedate);
+                    $meter_address = explode('&&', $value->meter_address);
 
-                    for ($i=0; $i < count($custype_type); $i++) {
-                        $custype_id = $this->custypeM->get_by_type($custype_type[$i]);
+                    for ($i=0; $i < count($zone); $i++) {
+                        $custype_id = $this->custypeM->get_by_zone($zone[$i]);
                     // printx($this->custypeM->get_by_type($custype_type[$i]));
-                        $data_meter[] = [
+                        $data_meter = [
                             'cus_id'        => $user_info['user_id'],
                             'custype_id'    => $custype_id,
                             'meter_serial_no'   => $meter_serial_no[$i],
@@ -400,9 +391,9 @@ class UserController extends Controller
                             'meter_duedate' => $meter_duedate[$i],
                             'meter_address' => $meter_address[$i],
                         ];
+                        $add_meter = $this->meterM->add_meter($data_meter);
                     }
                     // printx($data_meter);
-                    $add_meter = $this->meterM->add_meter($data_meter);
                 }
             }
         }
