@@ -42,6 +42,7 @@
                             <th>Min. Peso Rate</th>
                             <th>Due Date Duration</th>
                             <th>Due Date Penalty</th>
+                            <th>Zone</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -58,6 +59,7 @@
                                 <td>{{ $record->custype_min_peso_rate }}</td>
                                 <td>{{ $record->custype_due_date_duration }}</td>
                                 <td>{{ $record->custype_due_date_penalty }}</td>
+                                <td>{{ $record->custype_zone }}</td>
                                 <td>
                                     @if($record->custype_previous_data)
                                     <a href="{{ route('get-custype-old-by-id',['id'=>$record->custype_id]) }}"><span class="label label-success">View Prev Data</span></a>

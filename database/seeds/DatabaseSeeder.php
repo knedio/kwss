@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         foreach ($custype as $type) {
         	for ($i=1; $i <= 15 ; $i++) { 
         		$data = [
-		            $custype_prefix.'type'  => $type,
+		            $custype_prefix.'type'  => $type.' Zone '.$i,
 		            $custype_prefix.'min_cubic_meter'   => 8,
 		            $custype_prefix.'cubic_meter_rate'  => 14,
 		            $custype_prefix.'min_peso_rate'     => 70,
