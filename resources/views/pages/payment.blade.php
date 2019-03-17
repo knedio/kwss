@@ -92,13 +92,14 @@
                                         $other_payment = $record->reading_other_payment;
                                         // $total_amount = $payment_amount + $other_payment;
                                         $reading_date = $record->reading_date;
-                                        $payment_amount = check_if_penalty($duration,$reading_date,$payment_amount,$penalty,$other_payment);
+                                        $zone = $record->custype_zone;
+                                        $payment_amount = check_if_penalty($duration,$reading_date,$payment_amount,$penalty,$zone,$other_payment);
                                     @endphp
                                         <tr>
                                             <td>{{ $count }}</td>
                                             <td>{{ ucwords(strtolower($record->cus_lastname.', '.$record->cus_firstname)) }}</td>
                                             <td>{{ $record->meter_serial_no }}</td>
-                                            <td>{{ $record->cus_zone }}</td>
+                                            <td>{{ $record->custype_zone }}</td>
                                             <td>{{ date('Y-m-d',strtotime($reading_date)) }}</td>
                                             <td>{{ number_format($record->reading_waterconsumed+$record->reading_prev_waterconsumed,2) }}</td>
                                             <td class="text-right">{{ $record->payment_amount }}</td>
@@ -155,7 +156,7 @@
                                             <td>{{ $count }}</td>
                                             <td>{{ ucwords(strtolower($record->cus_lastname.', '.$record->cus_firstname)) }}</td>
                                             <td>{{ $record->meter_serial_no }}</td>
-                                            <td>{{ $record->cus_zone }}</td>
+                                            <td>{{ $record->custype_zone }}</td>
                                             <td>{{ date('Y-m-d',strtotime($record->reading_date)) }}</td>
                                             <td>{{ date('Y-m-d',strtotime($record->trans_date)) }}</td>
                                             <td>{{ number_format($record->reading_waterconsumed+$record->reading_prev_waterconsumed,2) }}</td>
@@ -220,7 +221,7 @@
                                             <td>{{ $count }}</td>
                                             <td>{{ ucwords(strtolower($record->cus_lastname.', '.$record->cus_firstname)) }}</td>
                                             <td>{{ $record->meter_serial_no }}</td>
-                                            <td>{{ $record->cus_zone }}</td>
+                                            <td>{{ $record->custype_zone }}</td>
                                             <td>{{ date('Y-m-d',strtotime($record->reading_date)) }}</td>
                                             <td>{{ date('Y-m-d',strtotime($record->trans_date)) }}</td>
                                             <td>{{ number_format($record->reading_waterconsumed+$record->reading_prev_waterconsumed,2) }}</td>

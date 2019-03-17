@@ -60,6 +60,7 @@ class PaymentController extends Controller
         $full_records = $this->meter_readM->get_pay_by_status('Full');
         $partial_records = $this->meter_readM->get_pay_by_status('Partial');
         $unpaid_records = $this->meter_readM->get_pay_unpaid();
+
         return view('pages.payment',[
             'full_records'      => $full_records,
             'partial_records'   => $partial_records,
