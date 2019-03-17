@@ -112,6 +112,9 @@
                                         	<a href="{{ route('add-reading-page',['cus_id'=>$record->cus_id,'meter_id'=>$record->meter_id]) }}"><span class="label label-success">Add Reading</span></a>
                                         @else
                                         	
+	                                        <a href="{{ route('pdf_billing',['reading_id'=>$record->reading->reading_id]) }}">
+	                                            <span class="label label-success">Billing Receipt</span>
+	                                        </a>
 	                                        <a href="{{ route('edit-meter-reading',['id'=>$record->reading->reading_id]) }}">
 	                                            <span class="label label-primary">View/Update</span>
 	                                        </a>
