@@ -57,9 +57,9 @@
                             <th>Customer name</th>
                             <th>Meter serial number</th>
                             <th>Zone</th>
-                            <th>Previous meter reading</th>
-                            <th>Present meter reading</th>
-                            <th>Total water consumed</th>
+                            <th>Previous meter consumed (&#13221;)</th>
+                            <th>Present meter consumed (&#13221;)</th>
+                            <th>Total meter consumed</th>
                             <th>Amount to be paid</th>
                             <th>Due date</th>
                             <th>Reading date</th>
