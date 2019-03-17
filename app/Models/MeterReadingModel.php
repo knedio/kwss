@@ -31,7 +31,7 @@ class MeterReadingModel extends Model
         $partial_amount = $result->trans_payment;
         $pay_status = $result->pay_status;
         $duration = $result->custype_due_date_duration;
-        $zone = $result->cus_zone;
+        $zone = $result->custype_zone;
         $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
         $result->due_date = get_due_date($reading_date,$duration,$zone);
         $result->payment_amount = $payment_amount;
@@ -63,7 +63,7 @@ class MeterReadingModel extends Model
             $reading_amount = $result->reading_amount;
             $reading_date = $result->reading_date;
             $duration = $result->custype_due_date_duration;
-            $zone = $result->cus_zone;
+            $zone = $result->custype_zone;
 
             $result->due_date = get_due_date($reading_date,$duration,$zone);
             if (check_due_date($reading_date,$duration,$zone)) {
@@ -95,7 +95,7 @@ class MeterReadingModel extends Model
             $reading_amount = $result->reading_amount;
             $reading_date = $result->reading_date;
             $duration = $result->custype_due_date_duration;
-            $zone = $result->cus_zone;
+            $zone = $result->custype_zone;
             
             $result->due_date = get_due_date($reading_date,$duration,$zone);
 
@@ -124,7 +124,7 @@ class MeterReadingModel extends Model
         foreach ($results as $result) {
             $reading_date = $result->reading_date;
             $duration = $result->custype_due_date_duration;
-            $zone = $result->cus_zone;
+            $zone = $result->custype_zone;
             $result->due_date = get_due_date($reading_date,$duration,$zone);
         }
         // echo '<pre>'.print_r($results,1).'</pre>';exit();
@@ -185,7 +185,7 @@ class MeterReadingModel extends Model
         foreach ($results as $result) {
             $reading_date = $result->reading_date;
             $duration = $result->custype_due_date_duration;
-            $zone = $result->cus_zone;
+            $zone = $result->custype_zone;
             $result->due_date = get_due_date($reading_date,$duration,$zone);
         }
 
@@ -226,7 +226,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -269,7 +269,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$payment_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -311,7 +311,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -355,7 +355,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -397,7 +397,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -458,7 +458,7 @@ class MeterReadingModel extends Model
         $partial_amount = $result->trans_payment;
         $pay_status = $result->pay_status;
         $duration = $result->custype_due_date_duration;
-        $zone = $result->cus_zone;
+        $zone = $result->custype_zone;
 
         $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
         $result->due_date = get_due_date($reading_date,$duration,$zone);
@@ -501,7 +501,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -546,7 +546,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -604,7 +604,7 @@ class MeterReadingModel extends Model
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);
@@ -739,7 +739,7 @@ class MeterReadingModel extends Model
         ->first();
 
         if ($result) {
-            $zone = $result->cus_zone;
+            $zone = $result->custype_zone;
             $reading_date = $result->reading_date;
             $duration = $result->custype_due_date_duration;
             $result->due_date = get_due_date($reading_date,$duration,$zone);
@@ -778,5 +778,41 @@ class MeterReadingModel extends Model
             }
         }
         return $results;
+    }
+
+    public function get_meter_reading_by_month_with_cus($cus_id,$meter_id)
+    {
+        $current_month = date('m');
+        $result = \DB::table($this->tbl_name.' as mReading')
+        ->leftJoin('tbl_water_reader as mReader', 'mReading.reader_id', '=', 'mReader.reader_id')
+        ->leftJoin('tbl_meter as meter', 'mReading.meter_id', '=', 'meter.meter_id')
+        ->leftJoin('tbl_customer as cus', 'cus.cus_id', '=', 'meter.cus_id')
+        ->leftJoin('tbl_customer_type as custype', 'meter.custype_id', '=', 'custype.custype_id')
+        ->where(\DB::raw('MONTH(mReading.reading_date)'),$current_month)
+        ->where('cus.cus_id',$cus_id)
+        ->where('meter.meter_id',$meter_id)
+        ->first();
+        // $infos = array();
+        // foreach ($results as $result) {
+        $other_payment = $result->reading_other_payment;
+        $penalty = $result->custype_due_date_penalty;
+        $reading_amount = $result->reading_amount;
+        $reading_date = $result->reading_date;
+        $duration = $result->custype_due_date_duration;
+        $zone = $result->custype_zone;
+        
+        $result->due_date = get_due_date($reading_date,$duration,$zone);
+
+        if (check_due_date($reading_date,$duration,$zone)) {
+            $due_date_penalty_amount = $reading_amount * $penalty;
+        }else{
+            $due_date_penalty_amount = 0;
+            // printx($due_date_penalty_amount);
+        }
+        $result->penalty_amount = $due_date_penalty_amount;
+            // $infos[] = $result;
+        // }
+        
+        return $result;
     }
 }

@@ -266,7 +266,7 @@ class PaymentController extends Controller
             $partial_amount = $col->trans_payment;
             $pay_status = $col->pay_status;
             $duration = $col->custype_due_date_duration;
-            $zone = $col->cus_zone;
+            $zone = $col->custype_zone;
 
             $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
             $col->due_date = get_due_date($reading_date,$duration,$zone);

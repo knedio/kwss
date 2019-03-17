@@ -112,6 +112,9 @@
                         required: true,
                         digits: true
                     },
+                    zone: {
+                        required: true,
+                    },
                 },
             });
         });
@@ -139,6 +142,8 @@
                     $('input[name="min_peso_rate"]').val(resp.custype_min_peso_rate);
                     $('input[name="due_date_penalty"]').val(resp.custype_due_date_penalty);
                     $('input[name="due_date_duration"]').val(duration);
+                    $('select#zone').val(resp.custype_zone);
+                    console.log(resp.custype_zone)
                     $('input[name="id"]').val(resp.custype_id);
                 },
                 error: function(err){

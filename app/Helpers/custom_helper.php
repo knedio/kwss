@@ -83,7 +83,7 @@
     }
 
     function get_due_date($reading_date,$duration,$zone = '',$format = TRUE)
-    {
+    {  
         $reading_date = Carbon::parse($reading_date);
         if ($duration == 'Monthly') {
             $due_date = $reading_date->addMonth();
@@ -96,7 +96,15 @@
 
             $due_date = $date->addMonth();
         }else{
-            $due_date = $reading_date->addDays($duration);
+
+            $start_day = 12;
+            $in = date_create($reading_date);
+            $out = date_create($in->format('Y-m-'.($zone+$start_day)));
+            $date = $out->format('Y-m-d');
+            $date = Carbon::parse($date);
+
+            $due_date = $date->addMonth();
+            // $due_date = $reading_date->addDays($duration);
         }
         $due_date_format = date('Y-m-d',strtotime($due_date));
         return $due_date_format;

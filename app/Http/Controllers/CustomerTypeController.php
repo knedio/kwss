@@ -33,6 +33,7 @@ class CustomerTypeController extends Controller
         $min_peso_rate = $request->min_peso_rate;
         $due_date_penalty = $request->due_date_penalty;
         $due_date_duration = $request->due_date_duration ?: $request->duration_radio;
+        $zone = $request->zone;
         // printx($due_date_duration);
         $data = [
             $prefix.'type'  => $type,
@@ -40,7 +41,8 @@ class CustomerTypeController extends Controller
             $prefix.'cubic_meter_rate'  => $cubic_meter_rate,
             $prefix.'min_peso_rate'     => $min_peso_rate,
             $prefix.'due_date_penalty'  => $due_date_penalty,
-            $prefix.'due_date_duration'  => $due_date_duration
+            $prefix.'due_date_duration'  => $due_date_duration,
+            $prefix.'zone'  => $zone
         ];
         $add = $this->cusTypeM->add_custype($data);
             
@@ -57,28 +59,30 @@ class CustomerTypeController extends Controller
         $min_peso_rate = $request->min_peso_rate;
         $due_date_penalty = $request->due_date_penalty;
         $due_date_duration = $request->due_date_duration ?: $request->duration_radio;
+        $zone = $request->zone;
         $data = [
             $prefix.'type'  => $type,
             $prefix.'min_cubic_meter'  => $min_cubic_meter,
             $prefix.'cubic_meter_rate'  => $cubic_meter_rate,   
             $prefix.'min_peso_rate'  => $min_peso_rate,
             $prefix.'due_date_penalty'  => $due_date_penalty,
-            $prefix.'due_date_duration'  => $due_date_duration
+            $prefix.'due_date_duration'  => $due_date_duration,
+            $prefix.'zone'  => $zone
         ];
         $data_serialized = serialize($this->cusTypeM->get_by_id($id));
         $data[$prefix.'previous_data'] = $data_serialized;
 
         $old = $this->cusTypeM->get_by_id($id);
 
-        $data_old = [
-            $prefix.'id'  => $id,
-            $prefix.'type'  => $type,
-            $prefix.'min_cubic_meter'  => $min_cubic_meter,
-            $prefix.'cubic_meter_rate'  => $cubic_meter_rate,   
-            $prefix.'min_peso_rate'  => $min_peso_rate,
-            $prefix.'due_date_penalty'  => $due_date_penalty,
-            $prefix.'due_date_duration'  => $due_date_duration
-        ];
+        // $data_old = [
+        //     $prefix.'id'  => $id,
+        //     $prefix.'type'  => $type,
+        //     $prefix.'min_cubic_meter'  => $min_cubic_meter,
+        //     $prefix.'cubic_meter_rate'  => $cubic_meter_rate,   
+        //     $prefix.'min_peso_rate'  => $min_peso_rate,
+        //     $prefix.'due_date_penalty'  => $due_date_penalty,
+        //     $prefix.'due_date_duration'  => $due_date_duration
+        // ];
 
         $add_old = $this->cusTypeM->add_custype_old((array)$old);
         $update = $this->cusTypeM->edit_custype($id,$data);

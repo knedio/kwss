@@ -319,4 +319,28 @@ class UserModel extends Model
         return $results;
     }
 
+    public function get_customer_with_meter_by_zone($zone)
+    {
+        $results = \DB::table('tbl_account as acc')
+        ->leftJoin('tbl_customer as cus', 'acc.acc_id', '=', 'cus.acc_id')
+        ->leftJoin('tbl_meter as meter', 'cus.cus_id', '=', 'meter.cus_id')
+        ->leftJoin('tbl_customer_type as custype', 'meter.custype_id', '=', 'custype.custype_id')
+        ->where('acc.account_type', 'Customer')
+        ->where('custype.custype_zone', $zone)
+        ->get();
+        return $results;
+    }
+
+    public function get_customer_by_id_meter_id($cus_id,$meter_id)
+    {
+        $results = \DB::table('tbl_account as acc')
+        ->leftJoin('tbl_customer as cus', 'acc.acc_id', '=', 'cus.acc_id')
+        ->leftJoin('tbl_meter as meter', 'cus.cus_id', '=', 'meter.cus_id')
+        ->leftJoin('tbl_customer_type as custype', 'meter.custype_id', '=', 'custype.custype_id')
+        ->where('cus.cus_id', $cus_id)
+        ->where('meter.meter_id', $meter_id)
+        ->first();
+        return $results;
+    }
+
 }

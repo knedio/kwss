@@ -21,11 +21,10 @@
             </ol>
         </div>
     </div>
-    <hr />
     <div class="row">
-        <div class="col-xs-12">
+       {{--  <div class="col-xs-12">
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add_meter_reading">Add Meter Reading</button>
-        </div>
+        </div> --}}
         <div class="col-xs-12">
             <hr>
             <h5><strong>Export</strong></h5>

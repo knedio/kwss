@@ -84,14 +84,6 @@
                     <label for="address">Address :</label>
                     <input type="text" class="form-control" name="address" id="address" value="{{ $record->address }}" placeholder="Address">
                 </div>
-                @if(!empty($record->zone))
-                <div id="" class="customer-info hide-content">
-                    <div class="form-group">
-                        <label for="zone">Zone :</label>
-                        <input type="text" class="form-control" name="zone" id="zone" value="{{ $record->zone }}" placeholder="Zone">
-                    </div>
-                </div>
-                @endif
                 @if($record->account_type != 'Water Reader')
                 <div id="password_section" class="hide-content">
                     <div class="form-group">

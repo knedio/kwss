@@ -55,6 +55,24 @@ class MeterController extends Controller
         });
     }
 
+    public function add_reading_page(Request $request)
+    {
+        if(!allowed_user_role(array('Admin','Employee'))){
+            return redirect(url()->previous());
+        }
+
+        $cus_id = $request->cus_id;
+        $meter_id = $request->meter_id;
+
+        $result = $this->userM->get_customer_by_id_meter_id($cus_id,$meter_id);
+        $reader_records = $this->meter_readerM->get_all_meter_reader();
+        // printx($result);
+        return view('pages.add_meter_reading',[
+            'result' =>  $result,
+            'reader_records' =>  $reader_records,
+        ]);
+    }
+
     public function index()
     {
         if(!allowed_user_role(array('Admin','Employee'))){
@@ -71,12 +89,25 @@ class MeterController extends Controller
         ]);
     }
 
-    public function monthly_reading()
+    public function monthly_reading(Request $request)
     {
         if(!allowed_user_role(array('Admin','Employee'))){
             return redirect(url()->previous());
         }
+        
+        $zone = $request->zone ?: 1;
 
+        $customer_records = $this->userM->get_customer_with_meter_by_zone($zone);
+
+        if ($customer_records) {
+            foreach ($customer_records as $result) {
+                $check = $this->meter_readM->get_meter_reading_by_month_with_cus($result->cus_id,$result->meter_id);
+                if ($check) {
+                    $result->reading = $check;
+                }
+            }
+        }
+        // printx($customer_records);
         $cus_records = $this->userM->get_all_cus();
         $meter_records = $this->meterM->get_all_meter();
         $reading_records = $this->meter_readM->get_meter_reading_by_montly('All');
@@ -91,6 +122,8 @@ class MeterController extends Controller
             'unread_records' =>  $unread_records,
             'read_records' =>  $read_records,
             'reader_records' =>  $reader_records,
+            'customer_records' =>  $customer_records,
+            'zone' =>  $zone,
         ]);
     }
 
@@ -131,6 +164,7 @@ class MeterController extends Controller
         }
         $reading_waterconsumed = $request->reading_waterconsumed;
         $reading_other_payment = $request->reading_other_payment;
+        $reading_other_payment_name = $request->reading_other_payment_name;
         $reading_prev_waterconsumed = $request->reading_prev_waterconsumed;
         $reading_amount = $request->reading_amount;
         $reading_status = $request->reading_status;
@@ -141,6 +175,7 @@ class MeterController extends Controller
             'meter_id' => $meter_id,
             'reading_date' => $reading_date,
             'reading_waterconsumed' => $reading_waterconsumed,
+            'reading_other_payment_name' => $reading_other_payment_name,
             'reading_other_payment' => $reading_other_payment,
             'reading_prev_waterconsumed' => $reading_prev_waterconsumed,
             'reading_amount' => $reading_amount,
@@ -153,37 +188,37 @@ class MeterController extends Controller
                 'meter_total_consumed'  => $reading_waterconsumed+$reading_prev_waterconsumed
             );
             $this->meterM->update_meter($meter_id,$data);
-            if ($send_sms == 'Yes') {
-                $cus_record = $this->userM->get_cus_details_by_id($cus_id);
-                $cus_mobile_no = $cus_record->mobile_number;
-                $cus_lastname = $cus_record->lastname;
-                $zone = $cus_record->zone;
-                $duration = $request->duration;
-                $due_date = get_due_date($reading_date,$duration,$zone);
-                if($cus_record->mobile_number){
-                    $sms_record = $this->smsM->get_used();
-                    // printx($sms_record);
-                    if ($sms_record) {
-                        $config = Configuration::getDefaultConfiguration();
-                        $config->setApiKey('Authorization', $sms_record->sms_api_key);
-                        $apiClient = new ApiClient($config);
-                        $messageClient = new MessageApi($apiClient);
-                        $deviceId = $sms_record->sms_device_id;
+            // if ($send_sms == 'Yes') {
+            //     $cus_record = $this->userM->get_cus_details_by_id($cus_id);
+            //     $cus_mobile_no = $cus_record->mobile_number;
+            //     $cus_lastname = $cus_record->lastname;
+            //     $zone = $cus_record->zone;
+            //     $duration = $request->duration;
+            //     $due_date = get_due_date($reading_date,$duration,$zone);
+            //     if($cus_record->mobile_number){
+            //         $sms_record = $this->smsM->get_used();
+            //         // printx($sms_record);
+            //         if ($sms_record) {
+            //             $config = Configuration::getDefaultConfiguration();
+            //             $config->setApiKey('Authorization', $sms_record->sms_api_key);
+            //             $apiClient = new ApiClient($config);
+            //             $messageClient = new MessageApi($apiClient);
+            //             $deviceId = $sms_record->sms_device_id;
 
-                        $sendMessageRequest = new SendMessageRequest([
-                            'phoneNumber' => '+63'.$cus_mobile_no,
-                            'message' => '[Note: KWSS Advisory] Hello '.$cus_lastname."'s, we did our water reading ".$reading_date.' , the due date is '.$due_date.' and the water bill is '.$reading_amount.' and the other payment is '.$reading_other_payment.'. Thank you and have a nice day.',
-                            'deviceId' => $deviceId
-                        ]);
+            //             $sendMessageRequest = new SendMessageRequest([
+            //                 'phoneNumber' => '+63'.$cus_mobile_no,
+            //                 'message' => '[Note: KWSS Advisory] Hello '.$cus_lastname."'s, we did our water reading ".$reading_date.' , the due date is '.$due_date.' and the water bill is '.$reading_amount.' and the other payment is '.$reading_other_payment.'. Thank you and have a nice day.',
+            //                 'deviceId' => $deviceId
+            //             ]);
                         
-                        $sendMessages = $messageClient->sendMessages([
-                            $sendMessageRequest
-                        ]);
-                    }else{
+            //             $sendMessages = $messageClient->sendMessages([
+            //                 $sendMessageRequest
+            //             ]);
+            //         }else{
                         
-                    }
-                }
-            }
+            //         }
+            //     }
+            // }
             // session()->push('success', TRUE);
             if ($reading_status == 'Read') {
                 $message = 'Successfully added meter reading. Click "Download" if you want to download billing receipt. 
@@ -198,7 +233,7 @@ class MeterController extends Controller
             $request->session()->flash('error', $message);
         }
         
-        return redirect()->route('meter-reading');
+        return redirect()->route('monthly-meter-reading');
     }
 
     public function update_meter_reading(Request $request) 
