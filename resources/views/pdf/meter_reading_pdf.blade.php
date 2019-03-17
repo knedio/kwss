@@ -82,7 +82,7 @@
                             <td>{{ $record->cus_lastname.', '.$record->cus_firstname }}</td>
 		  					<td>{{ $record->custype_type }}</td>
 		  					<td>{{ date('Y-m-d',strtotime($record->reading_date )) }}</td>
-		  					<td>{{ get_due_date($record->reading_date,$record->custype_due_date_duration) }}</td>
+		  					<td>{{ $record->due_date }}</td>
 		  					<td>{{ $record->reading_waterconsumed }}</td>
 		  					<td>{{ $record->reading_amount }}</td>
 		  					<td>{{ $record->reading_other_payment }}</td>

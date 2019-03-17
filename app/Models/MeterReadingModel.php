@@ -120,7 +120,6 @@ class MeterReadingModel extends Model
         ->leftJoin('tbl_customer as cus', 'cus.cus_id', '=', 'meter.cus_id')
         ->leftJoin('tbl_customer_type as custype', 'meter.custype_id', '=', 'custype.custype_id')
         ->get();
-
         foreach ($results as $result) {
             $reading_date = $result->reading_date;
             $duration = $result->custype_due_date_duration;

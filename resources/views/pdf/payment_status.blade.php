@@ -85,7 +85,7 @@
                                 <td>
                                     {{ ( $record->trans_date ? date('Y-m-d',strtotime($record->trans_date)) : '' )}}
                                 </td>
-                                <td>{{ get_due_date($record->reading_date,$record->custype_due_date_duration) }}</td>
+                                <td>{{ $record->due_date }}</td>
                             </tr>
                             @php $count++; @endphp
                         @endforeach
@@ -120,7 +120,7 @@
                                 <td>
                                     {{ ( $record->trans_date ? date('Y-m-d',strtotime($record->trans_date)) : '' )}}
                                 </td>
-                                <td>{{ get_due_date($record->reading_date,$record->custype_due_date_duration) }}</td>
+                                <td>{{ $record->due_date }}</td>
                             </tr>
                             @php $count++; @endphp
                         @endforeach

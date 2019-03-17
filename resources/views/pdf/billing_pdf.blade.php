@@ -92,7 +92,7 @@
 			</tr>
 			<tr class="border-bottom">
 				<td>DUE DATE:</td>
-				<td class="border-right border-bottom">{{ date("d-M",strtotime(get_due_date($record->reading_date,$record->custype_due_date_duration))) }}</td>
+				<td class="border-right border-bottom">{{ date("d-M",strtotime($record->due_date)) }}</td>
 				<td>USAGE:</td>
 				<td class="border-bottom">{{ $record->reading_waterconsumed }}</td>
 				<td>cu.m</td>
@@ -101,7 +101,7 @@
 				<td colspan="5" class="text-center">Statement of Accounts</td>
 			</tr>
 			<tr class="border-bottom">
-				<td rowspan="6" colspan="2" class="border-right text-center">
+				<td rowspan="7" colspan="2" class="border-right text-center">
 					This will serve also as <strong><u class="text-red">DISCONNECTION NOTICE</u></strong> if payment not made after 5 days due date. Please disregard if payment had been made... <br /> THANK YOU!
 				</td>
 				<td colspan="2">Bill for the month</td>
