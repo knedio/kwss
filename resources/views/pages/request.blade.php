@@ -42,7 +42,6 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>ID</th>
                             <th>Previous Data</th>
                             <th>Requested Data</th>
                             <th>Request Type</th>
@@ -56,7 +55,6 @@
                         @foreach($records as $record)
                             <tr>
                                 <td>{{ $count }}</td>
-                                <td>{{ $record['id'] }}</td>
                                 <td>{!! $record['prev_data_serialized'] !!}</td>
                                 <td>{!! $record['data_serialized'] !!}</td>
                                 <td>{{ $record['type'] }}</td>

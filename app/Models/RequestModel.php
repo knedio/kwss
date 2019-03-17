@@ -23,11 +23,17 @@ class RequestModel extends Model
             $prev_data = '';
             if ($data_unserialized) {
                 foreach ($data_unserialized as $key => $value) {
+                    if ($key == 'id') {
+                        continue;
+                    }
                     $current_data .= ucfirst($key).': '.$value.'<br />'; 
                 }
             }
             if ($prev_data_unserialized) {
                 foreach ($prev_data_unserialized as $key => $value) {
+                    if ($key == 'id') {
+                        continue;
+                    }
                     $prev_data .= ucfirst($key).': '.$value.'<br />'; 
                 }
             }

@@ -12,6 +12,7 @@ use App\Models\PaymentModel;
 use App\Models\LoginModel;
 use App\Models\UserModel;
 use App\Models\RequestModel;
+use App\Models\CustomerTypeModel;
 
 use Carbon\Carbon;
 
@@ -24,6 +25,7 @@ class APIController extends Controller
     protected $pay_detailM;
     protected $payM;
     protected $userM;
+    protected $custypeM;
     
     public function __construct 
     (
@@ -34,7 +36,8 @@ class APIController extends Controller
         PaymentModel $payM,
         LoginModel $loginM,
         UserModel $userM,
-        RequestModel $reqM
+        RequestModel $reqM,
+        CustomerTypeModel $custypeM
     )
     {
         $this->meterM = new $meterM;
@@ -45,6 +48,7 @@ class APIController extends Controller
         $this->loginM = new $loginM;
         $this->userM = new $userM;
         $this->reqM = new $reqM;
+        $this->custypeM = new $custypeM;
     }
 
     public function get_search_payment(Request $request)
@@ -223,6 +227,15 @@ class APIController extends Controller
         ->header('Content-Type', 'application/json');
     }
 
+    public function get_custype_deatils(Request $request)
+    {
+        // $custype_id = $request->id;
+        $records = $this->custypeM->get_all_custype();
+        // printx($records);
+        return response(json_encode($records),200)
+        ->header('Content-Type', 'application/json');
+    }
+
     public function add_request(Request $request)
     {
         // $data = $request->filter_input(type, variable_name)();
@@ -247,10 +260,11 @@ class APIController extends Controller
         $cus_firstname = $cus_record->firstname;
         $cus_lastname = $cus_record->lastname;
         $cus_address = $cus_record->address;
-        $cus_zone = $cus_record->zone;
+        // $cus_zone = $cus_record->zone;
+
         if ($request_type == 'Name') {
-            $request_firstname = $requestData['firstname'];
-            $request_lastname = $requestData['lastname'];
+            $request_firstname = $request->request_firstname;
+            $request_lastname = $request->request_lastname;
             $data_serialized = array(
                 'first name'    => $request_firstname,
                 'last name' => $request_lastname,
@@ -259,16 +273,31 @@ class APIController extends Controller
                 'first name'    => $cus_firstname,
                 'last name' => $cus_lastname,
             );
-        }else if ($request_type == 'Address') {
-            $request_address = $requestData['address'];
-            $request_zone = $requestData['zone'];
+        }elseif ($request_type == 'Address') {
+            $request_address = $request->request_address;
+            // $request_zone = $request->request_zone;
             $data_serialized = array(
                 'address'   => $request_address,
-                'zone'  => $request_zone,
+                // 'zone'   => $request_zone,
             );
             $prev_data_serialized = array(
                 'address'   => $cus_address,
-                'zone'  => $cus_zone,
+                // 'zone'   => $cus_zone,
+            );
+        }elseif($request_type == 'Meter'){
+            $meter_id = $requestData['meter_id'];
+            $custype_id = $requestData['custype_id'];
+            $cus_record = $this->userM->get_customer_by_id_meter_id($cus_id,$meter_id);
+            $custype_record =  $this->custypeM->get_by_id($custype_id);
+            $data_serialized = array(
+                'meter_serial_no'   => $cus_record->meter_serial_no,
+                'custype_type'   => $custype_record->custype_type,
+                'id'   => $custype_record->custype_id,
+            );
+            $prev_data_serialized = array(
+                'meter_serial_no'   => $cus_record->meter_serial_no,
+                'custype_type'   => $cus_record->custype_type,
+                'id'   => $cus_record->meter_id,
             );
         }
         $data = array(

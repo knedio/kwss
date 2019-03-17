@@ -45,7 +45,6 @@
             @endif
         </div>
     </div>
-    {{-- @php printx($record);@endphp --}}
     <form action="{{ route('edit-user') }}" method="post" id="profile_form" >
         <div class="row">
             <div class="col-xs-6">
@@ -109,59 +108,59 @@
             </div>
             <div class="row">
                 @php $count = 0; @endphp
-                    @foreach($meter_records as $m_rec)
-                        <div id="meter_details">
-                            <div id="meter_content{{$count+1}}">
-                                <div class="col-xs-6">
-                                    <h4>
-                                        <strong>Meter <span class="meter_no">{{$count+1}}</span></strong>
-                                        @if($count==0)
-                                            <button class="btn btn-xs btn-danger hide-content btn_remove_meter" id="btn_remove_meter{{$count+1}}" type="button" data-id="{{$count+1}}">
-                                                Remove
-                                            </button>
-                                        @endif
-                                    </h4>
-                                    @if(!empty($custype_records))
-                                    <div class="form-group">
-                                        <label for="custype_id">Customer Type <span class="text-red">*</span>:</label>
-                                        <select class="form-control meter-detail" id="custype_id{{$count+1}}" disabled name="custype_id[]">
-                                            <option value="" disabled selected>-- Select Customer Type --</option>
-                                            @foreach($custype_records as $col)
-                                                <option {{($m_rec->custype_id==$col->custype_id)? 'selected' : ''}} value="{{ $col->custype_id }}">{{ $col->custype_type }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                @foreach($meter_records as $m_rec)
+                    <div id="meter_details">
+                        <div id="meter_content{{$count+1}}">
+                            <div class="col-xs-6">
+                                <h4>
+                                    <strong>Meter <span class="meter_no">{{$count+1}}</span></strong>
+                                    @if($count==0)
+                                        <button class="btn btn-xs btn-danger hide-content btn_remove_meter" id="btn_remove_meter{{$count+1}}" type="button" data-id="{{$count+1}}">
+                                            Remove
+                                        </button>
                                     @endif
-                                    <div class="form-group">
-                                        <label for="meter_serial_no">Meter Serial No. <span class="text-red">*</span>:</label>
-                                        <input type="text" class="form-control meter-detail" name="meter_serial_no[]" id="meter_serial_no{{$count+1}}" disabled value="{{$m_rec->meter_serial_no}}" placeholder="Meter Serial No.">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meter_model">Meter Model <span class="text-red">*</span>:</label>
-                                        <input type="text" class="form-control meter-detail" name="meter_model[]" id="meter_model{{$count+1}}" disabled value="{{$m_rec->meter_model}}" placeholder="Meter Model">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meter_duedate">Meter Due Date <span class="text-red">*</span>:</label>
-                                        <input type="date" class="form-control meter-detail" name="meter_duedate[]" id="meter_duedate{{$count+1}}" disabled value="{{date('Y-m-d',strtotime($m_rec->meter_duedate))}}" placeholder="Due Date">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meter_address">Meter Address <span class="text-red">*</span>:</label>
-                                        <input type="text" class="form-control meter-detail" name="meter_address[]" id="meter_address{{$count+1}}" disabled value="{{$m_rec->meter_address}}" placeholder="Meter Address">
-                                    </div>
-                                    <input type="hidden" class="meter-detail" name="meter_id[]" id="meter_id{{$count+1}}" disabled value="{{$m_rec->meter_id}}">
+                                </h4>
+                                @if(!empty($custype_records))
+                                <div class="form-group">
+                                    <label for="custype_id">Customer Type <span class="text-red">*</span>:</label>
+                                    <select class="form-control meter-detail" id="custype_id{{$count+1}}" disabled name="custype_id[]">
+                                        <option value="" disabled selected>-- Select Customer Type --</option>
+                                        @foreach($custype_records as $col)
+                                            <option {{($m_rec->custype_id==$col->custype_id)? 'selected' : ''}} value="{{ $col->custype_id }}">{{ $col->custype_type }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+                                @endif
+                                <div class="form-group">
+                                    <label for="meter_serial_no">Meter Serial No. <span class="text-red">*</span>:</label>
+                                    <input type="text" class="form-control meter-detail" name="meter_serial_no[]" id="meter_serial_no{{$count+1}}" disabled value="{{$m_rec->meter_serial_no}}" placeholder="Meter Serial No.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="meter_model">Meter Model <span class="text-red">*</span>:</label>
+                                    <input type="text" class="form-control meter-detail" name="meter_model[]" id="meter_model{{$count+1}}" disabled value="{{$m_rec->meter_model}}" placeholder="Meter Model">
+                                </div>
+                                <div class="form-group">
+                                    <label for="meter_duedate">Meter Due Date <span class="text-red">*</span>:</label>
+                                    <input type="date" class="form-control meter-detail" name="meter_duedate[]" id="meter_duedate{{$count+1}}" disabled value="{{date('Y-m-d',strtotime($m_rec->meter_duedate))}}" placeholder="Due Date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="meter_address">Meter Address <span class="text-red">*</span>:</label>
+                                    <input type="text" class="form-control meter-detail" name="meter_address[]" id="meter_address{{$count+1}}" disabled value="{{$m_rec->meter_address}}" placeholder="Meter Address" />
+                                </div>
+                                <input type="hidden" class="meter-detail" name="meter_id[]" id="meter_id{{$count+1}}" disabled value="{{$m_rec->meter_id}}" />
                             </div>
                         </div>
-                        @php 
-                            $count++;
-                            if ($count == 1) {
-                                echo '<div id="additional_meter">';
-                            }
-                        @endphp
-                    @endforeach
-                    @if($record->account_type=='Customer')
                     </div>
-                    @endif
+                    @php 
+                        $count++;
+                        if ($count == 1 && $record->account_type=='Customer') {
+                            echo '<div id="additional_meter">';
+                        }
+                    @endphp
+                @endforeach
+                @if($record->account_type=='Customer')
+                </div>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -191,6 +190,7 @@
                                 <option value="" disabled selected>-- Select Request Type --</option>
                                 <option value="Name">Change Name</option>
                                 <option value="Address">Change Address</option>
+                                <option value="Meter">Change Meter</option>
                             </select>
                         </div>
                         <div id="name_info" class="hide-content">
@@ -208,9 +208,29 @@
                                 <label for="">Address <span class="text-red">*</span>:</label>
                                 <input type="text" class="form-control" disabled name="request_address" id="request_address" placeholder="">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="">Zone <span class="text-red">*</span>:</label>
                                 <input type="text" step="any" class="form-control" disabled name="request_zone" id="request_zone" placeholder="">
+                            </div> --}}
+                        </div>
+                        <div id="custype_info" class="hide-content">
+                            <div class="form-group">
+                                <label for="req_meter_id">Meter Serial No. <span class="text-red">*</span>:</label>
+                                <select class="form-control" id="req_meter_id" disabled name="req_meter_id">
+                                    <option value="" disabled selected>-- Select Meter Serial No. --</option>
+                                    @foreach($meter_records as $col)
+                                        <option data-custype-id="{{$col->custype_id}}" value="{{ $col->meter_id }}">{{ $col->meter_serial_no }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="req_custype_id">Customer Type <span class="text-red">*</span>:</label>
+                                <select class="form-control" id="req_custype_id" disabled name="req_custype_id">
+                                    <option value="" disabled selected>-- Select Customer Type --</option>
+                                    @foreach($custype_records as $col)
+                                        <option value="{{ $col->custype_id }}">{{ $col->custype_type }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -244,7 +264,10 @@
                 request_address: {
                     required: true,
                 },
-                request_zone: {
+                req_meter_id: {
+                    required: true,
+                },
+                req_custype_id: {
                     required: true,
                 },
             },
@@ -333,7 +356,11 @@
             //     }
             // }
         });
-
+        $('select#req_meter_id').change(function(){
+            var custype_id = $(this).find(':selected').data('custype-id');
+            console.log(custype_id)
+            $('select#req_custype_id').val(custype_id);
+        });
         $('select#account_type').change(function(){
             if ( $(this).val() == "Customer" ) {
                 $('.customer-info').removeClass('hide-content');
@@ -418,18 +445,34 @@
             let req_typ = $(this).val();
             if (req_typ == 'Name') {
                 $('#address_info').addClass('hide-content');
+                $('#custype_info').addClass('hide-content');
                 $('#request_address').attr('disabled','disabled');
                 $('#request_zone').attr('disabled','disabled');
+                $('#req_custype_id').attr('disabled','disabled');
+                $('#req_meter_id').attr('disabled','disabled');
                 $('#name_info').removeClass('hide-content');
                 $('#request_firstname').removeAttr('disabled');
                 $('#request_lastname').removeAttr('disabled');
             }else if (req_typ == 'Address') {
                 $('#name_info').addClass('hide-content');
+                $('#custype_info').addClass('hide-content');
                 $('#request_firstname').attr('disabled','disabled');
                 $('#request_lastname').attr('disabled','disabled');
+                $('#req_custype_id').attr('disabled','disabled');
+                $('#req_meter_id').attr('disabled','disabled');
                 $('#address_info').removeClass('hide-content');
                 $('#request_address').removeAttr('disabled');
                 $('#request_zone').removeAttr('disabled');
+            }else if (req_typ == 'Meter') {
+                $('#name_info').addClass('hide-content');
+                $('#address_info').addClass('hide-content');
+                $('#request_firstname').attr('disabled','disabled');
+                $('#request_lastname').attr('disabled','disabled');
+                $('#request_address').attr('disabled','disabled');
+                $('#request_zone').attr('disabled','disabled');
+                $('#custype_info').removeClass('hide-content');
+                $('#req_custype_id').removeAttr('disabled');
+                $('#req_meter_id').removeAttr('disabled');
             }
         });
     });

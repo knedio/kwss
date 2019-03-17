@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'cors'], function() { 
     Route::get('/test', 'APIController@test');
     Route::get('/get-meter-details/{id}', 'APIController@get_meter_deatils');
+    Route::get('/get-custype-details', 'APIController@get_custype_deatils');
     Route::get('/get-paid-payments/{id}', 'APIController@get_paid_payment');
     Route::get('/get-unpaid-payments/{id}', 'APIController@get_unpaid_payment');
     Route::get('/get-partial-payments/{id}', 'APIController@get_partial_payment');

@@ -314,7 +314,6 @@ Dashboard
                     <thead>
                         <tr>
                             <th></th>
-                            <th>ID</th>
                             <th>Type</th>
                             <th>Min. Cubic Meter Rate</th>
                             <th>Multiplied Cubic Meter</th>
@@ -330,7 +329,6 @@ Dashboard
                         @foreach($custype_records as $record)
                             <tr>
                                 <td>{{ $count }}</td>
-                                <td>{{ $record->custype_id }}</td>
                                 <td>{{ $record->custype_type }}</td>
                                 <td>{{ $record->custype_min_cubic_meter }}</td>
                                 <td>{{ $record->custype_cubic_meter_rate }}</td>

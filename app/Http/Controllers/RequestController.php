@@ -6,17 +6,23 @@ use Illuminate\Http\Request;
 
 use App\Models\RequestModel;
 use App\Models\UserModel;
+use App\Models\CustomerTypeModel;
+use App\Models\MeterModel;
 
 class RequestController extends Controller
 {
     
     public function __construct(
         RequestModel $reqM,
-        UserModel $userM
+        UserModel $userM,
+        CustomerTypeModel $custypeM,
+        MeterModel $meterM
     	) 
     {
         $this->reqM = new $reqM;
         $this->userM = new $userM;
+        $this->custypeM = new $custypeM;
+        $this->meterM = new $meterM;
         
         $this->middleware(function ($request, $next){
             if(!session('user_logged')){
@@ -70,15 +76,23 @@ class RequestController extends Controller
            				'cus_lastname'	=> $data_unserialized['last name'],
            			];
            		}
-           	}else if ($type == 'Address') {
-            	if ($data_unserialized) {
-           			$data_cus = [
-           				'cus_address'	=> $data_unserialized['address'],
-           				'cus_zone'	=> $data_unserialized['zone'],
-           			];
-           		}
-           	}
-    		$edit = $this->userM->update_cus_address($cus_id,$data_cus);
+                $edit = $this->userM->update_cus_address($cus_id,$data_cus);
+           	}elseif ($type == 'Address') {
+                if ($data_unserialized) {
+                    $data_cus = [
+                        'cus_address'   => $data_unserialized['address'],
+                    ];
+                }
+                $edit = $this->userM->update_cus_address($cus_id,$data_cus);
+            }elseif ($type == 'Meter') {
+                if ($data_unserialized) {
+                    $data_prev_unserialized = unserialize($result->request_prev_data_serialized);
+                    $data_cus = [
+                        'custype_id'   => $data_unserialized['id'],
+                    ];
+                }
+                $edit = $this->meterM->update_meter($data_prev_unserialized['id'],$data_cus);
+            }
     		if ($edit) {
             	$request->session()->flash('success', '<strong>Successfully!</strong> Approved Request.');
     		}else{
@@ -106,7 +120,8 @@ class RequestController extends Controller
     	$cus_firstname = $cus_record->firstname;
     	$cus_lastname = $cus_record->lastname;
     	$cus_address = $cus_record->address;
-    	$cus_zone = $cus_record->zone;
+    	// $cus_zone = $cus_record->zone;
+
     	if ($request_type == 'Name') {
     		$request_firstname = $request->request_firstname;
     		$request_lastname = $request->request_lastname;
@@ -120,23 +135,39 @@ class RequestController extends Controller
     		);
     	}elseif ($request_type == 'Address') {
     		$request_address = $request->request_address;
-    		$request_zone = $request->request_zone;
+    		// $request_zone = $request->request_zone;
     		$data_serialized = array(
     			'address'	=> $request_address,
-    			'zone'	=> $request_zone,
+    			// 'zone'	=> $request_zone,
     		);
     		$prev_data_serialized = array(
     			'address'	=> $cus_address,
-    			'zone'	=> $cus_zone,
+    			// 'zone'	=> $cus_zone,
     		);
-    	}
+    	}elseif($request_type == 'Meter'){
+            $meter_id = $request->req_meter_id;
+            $custype_id = $request->req_custype_id;
+            $cus_record = $this->userM->get_customer_by_id_meter_id($cus_id,$meter_id);
+            $custype_record =  $this->custypeM->get_by_id($custype_id);
+            $data_serialized = array(
+                'meter_serial_no'   => $cus_record->meter_serial_no,
+                'custype_type'   => $custype_record->custype_type,
+                'id'   => $custype_record->custype_id,
+            );
+            $prev_data_serialized = array(
+                'meter_serial_no'   => $cus_record->meter_serial_no,
+                'custype_type'   => $cus_record->custype_type,
+                'id'   => $cus_record->meter_id,
+            );
+        }
+
+        
 		$data = array(
 			'cus_id'	=> $cus_id,
 			'request_type'	=> $request_type,
 			'request_prev_data_serialized'	=> serialize($prev_data_serialized),
 			'request_data_serialized'	=> serialize($data_serialized),
 		);
-    	// printx($data);
     	$add = $this->reqM->add($data);
     	if ($add) {
             $request->session()->flash('success', '<strong>Successfully!</strong> Added request.');
