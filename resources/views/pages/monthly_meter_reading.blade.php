@@ -73,6 +73,7 @@
                             <th>Full Name</th>
                             <th>Address</th>
                             <th>Meter Serial No.</th>
+                            <th>Meter Address</th>
                             <th>Zone</th>
                             <th>Action</th>
                         </tr>
@@ -87,6 +88,7 @@
                                     <td>{{ ucwords(strtolower($record->cus_lastname.', '.$record->cus_firstname)) }}</td>
                                     <td>{{ $record->cus_address }}</td>
                                     <td>{{ $record->meter_serial_no }}</td>
+                                    <td>{{ $record->meter_address }}</td>
                                     <td>{{ $record->custype_zone }}</td>
                                     <td>
                                     	{{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add_meter_reading">Add Meter Reading</button> --}}

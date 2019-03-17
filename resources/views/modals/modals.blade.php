@@ -29,12 +29,6 @@
                 <div class="form-group">
                     <label for="">Due Date Duration : <input type="checkbox" name="duration_checkbox" id="duration_checkbox"> <small>Note: Tick to input day of due date.</small></label>
                     <div id="duration_radio">
-                        {{-- <div class="radio">
-                            <label>
-                                <input type="radio" name="duration_radio" id="" value="Monthly" checked>
-                                Monthly
-                            </label>
-                        </div> --}}
                         <div class="radio">
                             <label>
                                 <input type="radio" name="duration_radio" id="" value="By Zone">
@@ -98,14 +92,10 @@
                     <input type="number" step="any" class="form-control" name="min_peso_rate" id="min_peso_rate">
                 </div>
                 <div class="form-group">
-                    <label for="">Due Date Duration : <input type="checkbox" name="duration_checkbox" id="duration_checkbox"> <small>Note: Tick to input day of due date.</small></label>
+                    <label for="">Due Date Duration : <input type="checkbox" name="duration_checkbox" id="duration_checkbox"> 
+                        <small>Note: Tick to input day of due date.</small>
+                    </label>
                     <div id="duration_radio">
-                        {{-- <div class="radio">
-                            <label>
-                                <input type="radio" name="duration_radio" id="" value="Monthly" checked>
-                                Monthly
-                            </label>
-                        </div> --}}
                         <div class="radio">
                             <label>
                                 <input type="radio" name="duration_radio" id="" value="By Zone">
@@ -153,22 +143,28 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                 <div class="form-group">
                     <label for="custype_type">Customer Type :</label>
-                    <input type="text" class="form-control" disabled name="type" id=""               </div>
+                    <input type="text" class="form-control" disabled name="type" id="" placeholder="">
+                </div>
                 <div class="form-group">
                     <label for="">Min. (&#13221;) Rate :</label>
-                    <input type="number" step="any" class="form-control" disabled name="min_cubic_meter" id=""               </div>
+                    <input type="number" step="any" class="form-control" disabled name="min_cubic_meter" id="" placeholder="">
+                </div>
                 <div class="form-group">
                     <label for="">Multiplied (&#13221;) :</label>
-                    <input type="number" step="any" class="form-control" disabled name="cubic_meter_rate" id=""               </div>
+                    <input type="number" step="any" class="form-control" disabled name="cubic_meter_rate" id="" placeholder="">
+                </div>
                 <div class="form-group">
                     <label for="">Min. Peso Rate (₱) :</label>
-                    <input type="number" step="any" class="form-control" disabled name="min_peso_rate" id=""               </div>
+                    <input type="number" step="any" class="form-control" disabled name="min_peso_rate" id="" placeholder="">
+                </div>
                 <div class="form-group">
                     <label for="">Due Date Duration :</label>
-                    <input type="text" class="form-control" disabled name="due_date_duration" id=""               </div>
+                    <input type="text" class="form-control" disabled name="due_date_duration" id="" placeholder="">
+                </div>
                 <div class="form-group">
                     <label for="">Due Date Penalty :</label>
-                    <input type="number" step="any" class="form-control" disabled name="due_date_penalty" id=""               </div>
+                    <input type="number" step="any" class="form-control" disabled name="due_date_penalty" id="" placeholder="">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
