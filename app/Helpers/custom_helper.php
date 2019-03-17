@@ -11,6 +11,7 @@
     {
         $total_penalty = 0;
         if ($penalty != 0) {
+            $penalty = $penalty / 100;
         	$penalty_amount = $payment * $penalty;
         	$total_penalty = $payment + $penalty_amount - $partial_payment;
         }
@@ -26,6 +27,7 @@
 
     		$total_penalty = 0;
 	        if ($penalty != 0) {
+                $penalty = $penalty / 100;
 	        	$penalty_amount = $payment * $penalty;
 	        	$total_penalty = abs($payment + $penalty_amount + $other_payment  - $partial_payment);
 	        }
@@ -76,6 +78,7 @@
     {
         $total_penalty = 0;
         if ($penalty != 0) {
+            $penalty = $penalty / 100;
             $penalty_amount = $payment * $penalty;
             $total_penalty = $payment + $penalty_amount;
         }
