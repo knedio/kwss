@@ -131,10 +131,9 @@
                         </div>
                         <div class="form-group">
                             <label for="Water Consumed">Other Payment :</label>
-
                             <div class="row">
                                 <div class="col-xs-12 col-sm-8 col-md-8">
-                                    <input type="text" step="any" class="form-control" name="reading_other_payment_name" value="" id="reading_other_payment_name" placeholder="Enter Name">
+                                    <input type="text" class="form-control" name="reading_other_payment_name" value="" id="reading_other_payment_name" placeholder="Enter Name">
                                 </div>
                                 <div class="col-xs-12 col-sm-4 col-md-4">
                                     <input type="number" step="any" class="form-control" name="reading_other_payment" value="" id="reading_other_payment" placeholder="Enter Amount">

@@ -126,21 +126,29 @@
                     </div>
                     <div class="form-group">
                         <label for="Water Consumed">Total Water Consumed (&#13221;) :</label>
-                        <input type="text" class="form-control" name="reading_prev_waterconsumed" value="{{ $reading_records->reading_prev_waterconsumed }}" readonly id="prev_water_consumed" placeholder="200">
+                        <input type="text" class="form-control" name="reading_prev_waterconsumed" value="{{ $reading_records->reading_prev_waterconsumed }}" readonly id="prev_water_consumed">
                     </div>
                 </div>
                 <div id="reading_info" >
                     <div class="form-group">
                         <label for="Water Consumed">Water Consumed (&#13221;) <span class="text-red">*</span>:</label>
-                        <input type="number" step="any" class="form-control" name="reading_waterconsumed" value="{{ $reading_records->reading_waterconsumed }}" id="waterconsumed" required placeholder="200">
+                        <input type="number" step="any" class="form-control" name="reading_waterconsumed" value="{{ $reading_records->reading_waterconsumed }}" id="waterconsumed" required>
                     </div>
                     <div class="form-group">
                         <label for="Water Consumed">Amount (₱) <span class="text-red">*</span>:</label>
-                        <input type="text" class="form-control" name="reading_amount" value="{{ $reading_records->reading_amount }}" readonly="" required id="reading_amount" placeholder="200">
+                        <input type="text" class="form-control" name="reading_amount" value="{{ $reading_records->reading_amount }}" readonly="" required id="reading_amount">
                     </div>
                     <div class="form-group">
                         <label for="Water Consumed">Other Payment (₱) :</label>
-                        <input type="number" step="any" class="form-control" name="reading_other_payment" value="{{ $reading_records->reading_other_payment }}" id="reading_other_payment" placeholder="200">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <input type="text" class="form-control" name="reading_other_payment_name" value="{{ $reading_records->reading_other_payment_name }}" id="reading_other_payment_name">
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <input type="number" step="any" class="form-control" name="reading_other_payment" value="{{ $reading_records->reading_other_payment }}" id="reading_other_payment">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">

@@ -98,7 +98,6 @@ class MeterController extends Controller
         $zone = $request->zone ?: 1;
 
         $customer_records = $this->userM->get_customer_with_meter_by_zone($zone);
-
         if ($customer_records) {
             foreach ($customer_records as $result) {
                 $check = $this->meter_readM->get_meter_reading_by_month_with_cus($result->cus_id,$result->meter_id);
@@ -245,6 +244,7 @@ class MeterController extends Controller
         $reading_date = $request->reading_date;
         $reading_waterconsumed = $request->reading_waterconsumed;
         $reading_other_payment = $request->reading_other_payment;
+        $reading_other_payment_name = $request->reading_other_payment_name;
         $reading_prev_waterconsumed = $request->reading_prev_waterconsumed;
         $reading_amount = $request->reading_amount;
         $reading_status = $request->reading_status;
@@ -255,6 +255,7 @@ class MeterController extends Controller
             'reading_date' => $reading_date,
             'reading_waterconsumed' => $reading_waterconsumed,
             'reading_other_payment' => $reading_other_payment,
+            'reading_other_payment_name' => $reading_other_payment_name,
             'reading_prev_waterconsumed' => $reading_prev_waterconsumed,
             'reading_amount' => $reading_amount,
             'reading_status' => $reading_status,
@@ -364,5 +365,67 @@ class MeterController extends Controller
             'reading_records'   => $reading_records
         );
        return PDF::loadView('pdf.meter_reading_pdf',$data)->download('meter-reading'.date('Ymd-His').'.pdf');
+    }
+
+    public function send_sms_meter_reading(Request $request){
+
+        $zone = $request->zone;
+
+        $customer_records = $this->userM->get_customer_with_meter_by_zone($zone);
+
+        if ($customer_records) {
+            foreach ($customer_records as $result) {
+                $check = $this->meter_readM->get_meter_reading_by_month_with_cus($result->cus_id,$result->meter_id);
+                if ($check) {
+                    $result->reading = $check;
+                }
+            }
+        }
+
+        foreach ($customer_records as $record) {
+            $cus_mobile_no = $record->cus_mobile_number;
+            $cus_lastname = $record->cus_lastname;
+            $zone = $record->custype_zone;
+
+            $sms_record = $this->smsM->get_used();
+            $config = Configuration::getDefaultConfiguration();
+            $config->setApiKey('Authorization', $sms_record->sms_api_key);
+            $apiClient = new ApiClient($config);
+            $messageClient = new MessageApi($apiClient);
+            $deviceId = $sms_record->sms_device_id;
+
+            if($cus_mobile_no){
+                if ($sms_record) {
+                    if (!empty($record->reading)) {
+                        $duration = $record->reading->custype_due_date_duration;
+                        $reading_date = $record->reading->reading_date;
+                        $due_date = get_due_date($reading_date,$duration,$zone);
+
+                        $sendMessageRequest = new SendMessageRequest([
+                            'phoneNumber' => '+63'.$cus_mobile_no,
+                            'message' => '[Note: KWSS Advisory] Hello '.$cus_lastname."'s, we did our water reading ".date('Y-m-d',strtotime($reading_date)).' , the due date is '.$due_date.' and the water bill is '.$record->reading->reading_amount.' and the other payment is '.$record->reading->reading_other_payment.'. Thank you and have a nice day.',
+                            'deviceId' => $deviceId
+                        ]);
+                        
+                        $sendMessages = $messageClient->sendMessages([
+                            $sendMessageRequest
+                        ]);
+                    }else{
+
+                        $sendMessageRequest = new SendMessageRequest([
+                            'phoneNumber' => '+63'.$cus_mobile_no,
+                            'message' => '[Note: KWSS Advisory] Hello '.$cus_lastname.", we would like to inform you that we couldn't read your Meter Serial No. ".$record->meter_serial_no.".Thank you and have a nice day.",
+                            'deviceId' => $deviceId
+                        ]);
+                        $sendMessages = $messageClient->sendMessages([
+                            $sendMessageRequest
+                        ]);
+                    }
+                }else{
+                    
+                }
+            }
+        }
+        return redirect(url()->previous());
     }
 }

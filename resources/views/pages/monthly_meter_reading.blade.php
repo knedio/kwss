@@ -63,7 +63,10 @@
    </div>
    <div class="row">
    	 	<div class="col-xs-12" style="margin-top:10px;">
-            <button type="submit" class="btn btn-success btn-sm">Send SMS</button>
+   	 		<a href="{{ route('send_sms_meter_reading',['zone'=>$zone]) }}"
+                class="btn btn-success btn-sm">
+                Send Monthly Reading
+            </a>
         </div>
    </div>
    <br>

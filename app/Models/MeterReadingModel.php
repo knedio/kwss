@@ -794,22 +794,24 @@ class MeterReadingModel extends Model
         ->first();
         // $infos = array();
         // foreach ($results as $result) {
-        $other_payment = $result->reading_other_payment;
-        $penalty = $result->custype_due_date_penalty;
-        $reading_amount = $result->reading_amount;
-        $reading_date = $result->reading_date;
-        $duration = $result->custype_due_date_duration;
-        $zone = $result->custype_zone;
-        
-        $result->due_date = get_due_date($reading_date,$duration,$zone);
+        if ($result) {
+            $other_payment = $result->reading_other_payment;
+            $penalty = $result->custype_due_date_penalty;
+            $reading_amount = $result->reading_amount;
+            $reading_date = $result->reading_date;
+            $duration = $result->custype_due_date_duration;
+            $zone = $result->custype_zone;
+            
+            $result->due_date = get_due_date($reading_date,$duration,$zone);
 
-        if (check_due_date($reading_date,$duration,$zone)) {
-            $due_date_penalty_amount = $reading_amount * $penalty;
-        }else{
-            $due_date_penalty_amount = 0;
-            // printx($due_date_penalty_amount);
+            if (check_due_date($reading_date,$duration,$zone)) {
+                $due_date_penalty_amount = $reading_amount * $penalty;
+            }else{
+                $due_date_penalty_amount = 0;
+                // printx($due_date_penalty_amount);
+            }
+            $result->penalty_amount = $due_date_penalty_amount;
         }
-        $result->penalty_amount = $due_date_penalty_amount;
             // $infos[] = $result;
         // }
         

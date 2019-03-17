@@ -315,7 +315,7 @@ class PaymentController extends Controller
         $data = array(
             'record'    => $record,
         );
-       return PDF::loadView('pdf.receipt_pdf',$data)->setPaper([0, 0, 450, 300], 'portrait')->download('billing_'.date('Ymd-His').'.pdf');
+       return PDF::loadView('pdf.receipt_pdf',$data)->setPaper([0, 0, 450, 330], 'portrait')->download('billing_'.date('Ymd-His').'.pdf');
     }
 
     public function pdf_receipt_old(Request $request){
@@ -336,7 +336,7 @@ class PaymentController extends Controller
             'record'    => $record,
             'total_arrears'    => $total_arrears,
         );
-       return PDF::loadView('pdf.receipt_pdf',$data)->setPaper([0, 0, 450, 300], 'portrait')->stream('billing_'.date('Ymd-His').'.pdf');
+       return PDF::loadView('pdf.receipt_pdf',$data)->setPaper([0, 0, 450, 330], 'portrait')->stream('billing_'.date('Ymd-His').'.pdf');
     }
 
     public function export_payment_by_status(Request $request)

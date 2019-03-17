@@ -106,7 +106,14 @@
             <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                     <label for="reading_waterconsumed">Other Payment (₱) : </label>
-                    <input type="text" class="form-control" name="reading_waterconsumed" readonly value="{{ number_format($records{0}->reading_other_payment,2) }}" id="" >
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <input type="text" class="form-control" name="" readonly value="{{$records{0}->reading_other_payment_name}}" id="" >
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <input type="text" class="form-control" name="reading_waterconsumed" readonly value="{{ number_format($records{0}->reading_other_payment,2) }}" id="" >
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-md-6">

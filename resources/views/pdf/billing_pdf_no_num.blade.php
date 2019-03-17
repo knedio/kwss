@@ -113,8 +113,13 @@
 					<td class="text-right">Arrears</td>
 					<td class="border-bottom text-center">{{ $info['arrears'] }}</td>
 				</tr>
+
 				<tr>
 					<td class="text-right" colspan="2">Others</td>
+					<td class="text-center"></td>
+				</tr>
+				<tr>
+					<td class="text-right" colspan="2">{{$info['record']->reading_other_payment_name}}</td>
 					<td class="border-bottom text-center">{{ number_format($info['record']->reading_other_payment,2)}}</td>
 				</tr>
 				<tr>

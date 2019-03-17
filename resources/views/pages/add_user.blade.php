@@ -58,15 +58,6 @@
                         <input type="text" class="form-control" name="address" id="address" value="" placeholder="Address">
                     </div>
                     <div id="additional_input" style="display:block;">
-                        <div class="form-group">
-                            <label for="zone">Zone <span class="text-red">*</span>:</label>
-                            <select class="form-control meter-detail" id="custype_id1" disabled name="zone">
-                                <option value="" disabled selected>-- Select Zone --</option>
-                                @for($i=1; $i <= 15; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                        </div>
                         <h3>
                             <strong><u>Meter Details</u></strong> </small>
                             <button class="btn btn-xs btn-success" type="button" id="btn_additional_meter">

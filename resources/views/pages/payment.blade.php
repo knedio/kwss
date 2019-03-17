@@ -26,7 +26,7 @@
         <div class="col-xs-12 text-right">
             <a href="{{ route('monthly-check') }}"
                 class="btn btn-primary">
-                Click to Send Monthly Bill
+                Send Monthly Bill
             </a>
         </div>
     </div>

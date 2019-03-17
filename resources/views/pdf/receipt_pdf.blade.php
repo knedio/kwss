@@ -76,6 +76,7 @@
 				<td class="text-center border-right">Amount</td>
 			</tr>
 			@php
+				$reading_other_payment_name = $record->reading_other_payment_name;
 				$reading_amount = $record->reading_amount;
 				$penalty_amount = $record->penalty_amount;
 				$total_arrears = $record->total_arrears;
@@ -98,8 +99,11 @@
 				<td class="text-center border-right">{{ number_format($total_arrears,2)}}</td>
 			</tr>
 			<tr class="border-bottom">
-				<td class="text-center border-right">4</td>
-				<td colspan="3" class="text-center border-right">Others</td>
+				<td class="text-center border-right" rowspan="2">4</td>
+				<td colspan="4" class="text-center border-right">Others</td>
+			</tr>
+			<tr class="border-bottom">
+				<td colspan="3" class="text-center border-right">{{$reading_other_payment_name}}</td>
 				<td class="text-center border-right">{{ number_format($reading_other_payment,2) }}</td>
 			</tr>
 			<tr class="border-bottom">

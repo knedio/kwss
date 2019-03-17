@@ -51,6 +51,7 @@ Route::post('/update-meter-reading', 'MeterController@update_meter_reading')->na
 Route::get('/delete-meter-reading/{id}', 'MeterController@delete_meter_reading')->name('delete-meter-reading');
 Route::get('/export-meter-reading', 'MeterController@export_meter_reading')->name('export-meter-reading');
 Route::get('/add-reading-page/{cus_id}/{meter_id}', 'MeterController@add_reading_page')->name('add-reading-page');
+Route::get('/send_sms_meter_reading/{zone}', 'MeterController@send_sms_meter_reading')->name('send_sms_meter_reading');
 
 Route::get('/payments', 'PaymentController@index')->name('payments');
 Route::post('/add-payment', 'PaymentController@add_payment')->name('add-payment');
