@@ -61,6 +61,11 @@
         	</form>
         </div>
    </div>
+   <div class="row">
+   	 	<div class="col-xs-12" style="margin-top:10px;">
+            <button type="submit" class="btn btn-success btn-sm">Send SMS</button>
+        </div>
+   </div>
    <br>
     <div class="row">
         <div class="col-lg-12">
