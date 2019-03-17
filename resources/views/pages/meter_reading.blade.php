@@ -59,7 +59,7 @@
                             <th>Zone</th>
                             <th>Previous meter consumed (&#13221;)</th>
                             <th>Present meter consumed (&#13221;)</th>
-                            <th>Total meter consumed</th>
+                            <th>Monthly meter consumed</th>
                             <th>Amount to be paid</th>
                             <th>Due date</th>
                             <th>Reading date</th>
@@ -80,7 +80,7 @@
                                     <td>{{ $record->cus_zone }}</td>
                                     <td>{{ $record->reading_prev_waterconsumed }}</td>
                                     <td>{{ $record->reading_waterconsumed }}</td>
-                                    <td>{{ $record->reading_waterconsumed+$record->reading_prev_waterconsumed }}</td>
+                                    <td>{{ $record->reading_waterconsumed-$record->reading_prev_waterconsumed }}</td>
                                     <td class="text-right">{{ $record->reading_amount }}</td>
                                     <td>{{ $record->due_date }}</td>
                                     <td>{{ date('Y-m-d',strtotime($record->reading_date )) }}</td>
