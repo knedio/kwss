@@ -82,7 +82,7 @@ class MeterController extends Controller
         $cus_records = $this->userM->get_all_cus();
         $reading_records = $this->meter_readM->get_all_meter_reading();
         $reader_records = $this->meter_readerM->get_all_meter_reader();
-        return view('pages.meter_reading',[
+        return view('pages.all_meter_reading',[
             'cus_records' =>  $cus_records,
             'reading_records' =>  $reading_records,
             'reader_records' =>  $reader_records,
@@ -287,8 +287,11 @@ class MeterController extends Controller
 
     public function json_get_by_cus_id(Request $request)
     {
-        $cus_id = $request->cus_id;
-        $records = $this->meterM->get_by_cus_id($cus_id);
+        $data = $request->data;
+        $data = explode(',', $data);
+        $cus_id = $data[0];
+        $zone = $data[1];
+        $records = $this->meterM->get_by_cus_id_zone($cus_id,$zone);
         if ($records) {
             return response($records,200)
                     ->header('Content-Type', 'application/json');

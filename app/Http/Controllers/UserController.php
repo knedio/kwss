@@ -407,7 +407,7 @@ class UserController extends Controller
     public function json_get_all_cus_by_zone(Request $request)
     {
         $zone = $request->zone;
-        $records = $this->userM->get_all_cus_by_zone($zone);
+        $records = $this->userM->get_customer_with_meter_by_zone($zone);
         if ($records) {
             return response($records,200)
                     ->header('Content-Type', 'application/json');

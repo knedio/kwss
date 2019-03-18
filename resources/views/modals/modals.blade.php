@@ -173,6 +173,156 @@
     </div>
     
   </div>
+</div><!-- Modal for Add Meter Reading -->
+<div class="modal fade" id="add_meter_reading" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <form action="{{ route('add-meter-reading') }}" id="add_meter_reading_form" method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Meter Reading</h4>
+            </div>
+            <div class="modal-body">
+                @if(!empty($reader_records))
+                <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                <div class="form-group">
+                    <label for="water_reader">Water Reader <span class="text-red">*</span>:</label>
+                    <select class="form-control" id="reader_id" name="reader_id">
+                        <option value="" disabled selected>-- Select Reader --</option>
+                        @foreach($reader_records as $reader)
+                            <option value="{{ $reader->reader_id }}">
+                                {{ $reader->reader_firstname  }} {{ $reader->reader_lastname  }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="zone">Zone <span class="text-red">*</span>:</label>
+                    <select class="form-control" id="zone" name="zone">
+                        <option value="" disabled selected>-- Select Zone --</option>
+                        @for($i=1; $i <= 15; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                </div>
+                <div id="customer_info" style="display: none;">
+                    <div class="form-group">
+                        <label for="water_reader">Customer <span class="text-red">*</span>:</label>
+                        <select class="form-control" id="cus_id" name="cus_id">
+                            <option value="" disabled selected>-- Select Customer --</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div id="meter_info" style="display: none;">
+                    <div class="form-group">
+                        <label for="water_reader">Customer Meter <span class="text-red">*</span>:</label>
+                        <select class="form-control" id="meter_id" name="meter_id">
+                            <option value="" id="default" selected>-- Select Meter --</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="cus_info">
+                    <div class="form-group">
+                        <label for="custype_type">Customer Type :</label>
+                        <input type="text" class="form-control" id="custype_type" value="" readonly>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label for="">Min. (&#13221;) Rate :</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label for="">Multiplied (&#13221;) :</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <label for="">Min. Peso Rate (₱) :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <input type="text" class="form-control" id="min_cubic_meter" value="" readonly>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <input type="text" class="form-control" id="cubic_meter_rate" value="" readonly>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <input type="text" class="form-control" id="min_peso_rate" value="" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <label for="">Due Date Duration :</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <label for="">Due Date Penalty :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <input type="text" class="form-control" id="duration" name="duration" value="" readonly>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <input type="text" class="form-control" id="penalty" name="penalty" value="" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="reading_info" style="display: none;">
+                    <div class="form-group">
+                        <label for="Water Consumed">Previous Meter Reading:</label>
+                        <input type="text" class="form-control" name="reading_prev_waterconsumed" value="" readonly id="prev_water_consumed" placeholder="200">
+                    </div>
+                    <div class="form-group">
+                        <label for="Water Consumed">Current Meter Reading <span class="text-red">*</span>:</label>
+                        <input type="number" step="any" class="form-control" name="reading_waterconsumed" value="" id="waterconsumed" placeholder="200">
+                    </div>
+                    <div class="form-group">
+                        <label for="Water Consumed">Amount (₱) <span class="text-red">*</span>:</label>
+                        <input type="number" step="any" class="form-control" name="reading_amount" value="" readonly="" id="reading_amount" placeholder="200">
+                    </div>
+                    <div class="form-group">
+                        <label for="Water Consumed">Other Payment :</label>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <input type="text" class="form-control" name="reading_other_payment_name" value="" id="reading_other_payment_name" placeholder="Enter Name">
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <input type="number" step="any" class="form-control" name="reading_other_payment" value="" id="reading_other_payment" placeholder="Enter Amount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                <div class="form-group">
+                    <label for="Water Consumed">Status <span class="text-red">*</span>:</label>
+                    <select class="form-control" name="reading_status" id="reading_status">
+                        <option value="Read">Read</option>
+                        <option value="Unread" selected>Unread</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Reading Date">Reading Date <span class="text-red">*</span>:</label>
+                    <input type="date" class="form-control" name="reading_date" value="{{date('Y-m-d')}}" id="">
+                </div>
+                <div class="form-group">
+                    <label for="Water Consumed">Remarks :</label>
+                    <textarea class="form-control" name="reading_remarks" id="" rows="3"></textarea>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="id" id="">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+    
+  </div>
 </div>
 
 <!-- Modal for Add User -->

@@ -27,6 +27,16 @@ class MeterModel extends Model
         ->get();
         return $results;
     }
+    public function get_by_cus_id_zone($cus_id,$zone)
+    {
+        $results = \DB::table($this->tbl_name.' as meter')
+        ->leftJoin('tbl_customer as cus', 'cus.cus_id', '=', 'meter.cus_id')
+        ->leftJoin('tbl_customer_type as custype', 'meter.custype_id', '=', 'custype.custype_id')
+        ->where('meter.cus_id',$cus_id)
+        ->where('custype.custype_zone',$zone)
+        ->get();
+        return $results;
+    }
 
     public function add_meter($data) 
     {
