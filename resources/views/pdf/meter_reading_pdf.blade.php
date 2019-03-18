@@ -66,7 +66,8 @@
 	      			<th>Customer Type</th>
 	      			<th>Date</th>
 	      			<th>Due Date</th>
-	      			<th>Water Consumed</th>
+	      			<th>Previous Meter Reading</th>
+	      			<th>Current Meter Reading</th>
 	      			<th>Amount</th>
 	      			<th>Other Payment</th>
 	      			<th>Status</th>
@@ -83,6 +84,7 @@
 		  					<td>{{ $record->custype_type }}</td>
 		  					<td>{{ date('Y-m-d',strtotime($record->reading_date )) }}</td>
 		  					<td>{{ $record->due_date }}</td>
+		  					<td>{{ $record->reading_prev_waterconsumed }}</td>
 		  					<td>{{ $record->reading_waterconsumed }}</td>
 		  					<td>{{ $record->reading_amount }}</td>
 		  					<td>{{ $record->reading_other_payment }}</td>

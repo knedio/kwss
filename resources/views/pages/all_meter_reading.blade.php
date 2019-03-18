@@ -162,7 +162,6 @@
         $('#add_meter_reading select#zone').change(function(){
             $('#customer_info').css('display','block');
             let zone = $(this).val();
-            console.log(zone)
             $('select#meter_id option[class="meter-option"]').remove();
             $('select#meter_id').val('');
             $('select#cus_id option[class="cus-option"]').remove();
@@ -177,6 +176,7 @@
             $('#reading_info #prev_water_consumed').val('');
             $('#cus_info #duration').val('');
             $('#cus_info #penalty').val('');
+            $('#reading_info #reading_amount').val('');
            
             $.ajax({
                 method: 'GET',
@@ -192,7 +192,6 @@
                             opt.className = "cus-option";
                             opt.setAttribute('cus-id', resp[i]['cus_id']);
                             select.options[select.options.length] = opt;
-                            
                         }    
                     }else{
                         opt = new Option('No Data','No Data');
@@ -239,10 +238,6 @@
                 method: 'GET',
                 url: "{{ route('get-by-cus-id',['data'=>'']) }}"+cus_id+','+zone,
                 success: function(resp){
-                    console.log(resp);
-                     console.log(cus_id);
-                    console.log(zone);
-                    console.log('zone');
                     // var select = $("#meter_id_test")[0];
                     var select = document.getElementById("meter_id");
                     $('select#meter_id option[class="meter-option"]').remove();
@@ -283,8 +278,20 @@
             if (amount_pay  <= min_cubic_meter) {
                 amount_pay_total = min_peso_rate;
             }else{
+                console.log(min_cubic_meter)
+                console.log('min_cubic_meter')
+                console.log(cubic_meter_rate)
+                console.log('cubic_meter_rate')
+                console.log(min_peso_rate)
+                console.log('min_peso_rate')
+                amount_pay -= min_cubic_meter;
+                
+                console.log(amount_pay)
+                console.log('amount_pay')
+                amount_pay = Math.abs(amount_pay);
                 amount_pay_total = (amount_pay * cubic_meter_rate + min_peso_rate);
             }
+            console.log(amount_pay_total)
 
             $('#reading_info #reading_amount').val(amount_pay_total.toFixed(2));
 

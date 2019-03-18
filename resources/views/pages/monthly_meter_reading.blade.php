@@ -327,8 +327,20 @@
             if (amount_pay  <= min_cubic_meter) {
                 amount_pay_total = min_peso_rate;
             }else{
+                console.log(min_cubic_meter)
+                console.log('min_cubic_meter')
+                console.log(cubic_meter_rate)
+                console.log('cubic_meter_rate')
+                console.log(min_peso_rate)
+                console.log('min_peso_rate')
+                amount_pay -= min_cubic_meter;
+                
+                console.log(amount_pay)
+                console.log('amount_pay')
+                amount_pay = Math.abs(amount_pay);
                 amount_pay_total = (amount_pay * cubic_meter_rate + min_peso_rate);
             }
+            console.log(amount_pay_total)
 
             $('#reading_info #reading_amount').val(amount_pay_total.toFixed(2));
 
