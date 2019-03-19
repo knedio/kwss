@@ -101,7 +101,7 @@
                                             <td>{{ $record->meter_serial_no }}</td>
                                             <td>{{ $record->custype_zone }}</td>
                                             <td>{{ date('Y-m-d',strtotime($reading_date)) }}</td>
-                                            <td>{{ number_format($record->reading_waterconsumed+$record->reading_prev_waterconsumed,2) }}</td>
+                                            <td>{{ number_format((float)$record->reading_waterconsumed+(float)$record->reading_prev_waterconsumed,2) }}</td>
                                             <td class="text-right">{{ $record->payment_amount }}</td>
                                             <td>{{ date('Y-m-d',strtotime($record->due_date)) }}</td>
                                             <td>{{ $record->meter_address }}</td>
