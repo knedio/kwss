@@ -36,7 +36,7 @@ class MeterReadingModel extends Model
         $result->due_date = get_due_date($reading_date,$duration,$zone);
         $result->payment_amount = $payment_amount;
         if (check_due_date($reading_date,$duration,$zone)) {
-            $due_date_penalty_amount = $reading_amount * $penalty;
+            $due_date_penalty_amount = $reading_amount * ($penalty/100);
         }else{
             $due_date_penalty_amount = 0;
             // printx($due_date_penalty_amount);
@@ -67,7 +67,7 @@ class MeterReadingModel extends Model
 
             $result->due_date = get_due_date($reading_date,$duration,$zone);
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
                 // printx($due_date_penalty_amount);
@@ -100,7 +100,7 @@ class MeterReadingModel extends Model
             $result->due_date = get_due_date($reading_date,$duration,$zone);
 
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
                 // printx($due_date_penalty_amount);
@@ -231,7 +231,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             // printx($due_date_penalty_amount);
             }else{
                 $due_date_penalty_amount = 0;
@@ -316,7 +316,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             // printx($due_date_penalty_amount);
             }else{
                 $due_date_penalty_amount = 0;
@@ -360,7 +360,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
             }
@@ -402,7 +402,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
             }
@@ -463,7 +463,7 @@ class MeterReadingModel extends Model
         $result->due_date = get_due_date($reading_date,$duration,$zone);
         $result->payment_amount = $payment_amount;
         if (check_due_date($reading_date,$duration,$zone)) {
-            $due_date_penalty_amount = $reading_amount * $penalty;
+            $due_date_penalty_amount = $reading_amount * ($penalty/100);
         }else{
             $due_date_penalty_amount = 0;
         }
@@ -506,7 +506,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
             }
@@ -551,7 +551,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
             }
@@ -609,7 +609,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
             }
@@ -804,7 +804,7 @@ class MeterReadingModel extends Model
             $result->due_date = get_due_date($reading_date,$duration,$zone);
 
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $reading_amount * $penalty;
+                $due_date_penalty_amount = $reading_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
                 // printx($due_date_penalty_amount);

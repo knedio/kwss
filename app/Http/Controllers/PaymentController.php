@@ -286,22 +286,6 @@ class PaymentController extends Controller
         $data = array();
         $record = $this->meter_readM->get_meter_reading_by_id($reading_id);
 
-        $other_payment = $record->reading_other_payment;
-        $penalty = $record->custype_due_date_penalty;
-        $reading_amount = $record->reading_amount;
-        $reading_date = $record->reading_date;
-        $partial_amount = $record->trans_payment;
-        $pay_status = $record->pay_status;
-        $duration = $record->custype_due_date_duration;
-        $zone = $record->cus_zone;
-        $payment_amount = check_if_penalty($duration,$reading_date,$reading_amount,$penalty,$zone,$other_payment,$partial_amount,$pay_status,FALSE,FALSE);
-        $record->payment_amount = $payment_amount;
-        if (check_due_date($reading_date,$duration,$zone)) {
-            $due_date_penalty_amount = $reading_amount * $penalty;
-        }else{
-            $due_date_penalty_amount = 0;
-        }
-        $record->penalty_amount = $due_date_penalty_amount;
         // printx($payment_amount);
         return response(json_encode($record),200)
         ->header('Content-Type', 'application/json');
