@@ -203,7 +203,7 @@
         // printx($payment_amount);
         // $test = calculate_penalty($payment_amount,$penalty,$partial_payment);
         if (check_due_date($reading_date,$duration,$zone)) {
-            $due_date_penalty_amount = $reading_amount * $penalty;
+            $due_date_penalty_amount = $reading_amount * ($penalty/100);
         }else{
             $due_date_penalty_amount = 0;
         }
