@@ -274,7 +274,7 @@ class MeterReadingModel extends Model
             $col->due_date = get_due_date($reading_date,$duration,$zone);
             $col->payment_amount = $payment_amount;
             if (check_due_date($reading_date,$duration,$zone)) {
-                $due_date_penalty_amount = $payment_amount * $penalty;
+                $due_date_penalty_amount = $payment_amount * ($penalty/100);
             }else{
                 $due_date_penalty_amount = 0;
             }
