@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use PDF;
+use App\Models\PaymentModel;
 use App\Models\MeterModel;
 use App\Models\UserModel;
 use App\Models\MeterReadingModel;
@@ -25,6 +26,7 @@ class MeterController extends Controller
     protected $meter_readerM;
     protected $pay_detailM;
     protected $smsM;
+    protected $payM;
 
     public function __construct
     (
@@ -32,6 +34,7 @@ class MeterController extends Controller
         MeterReadingModel $meter_readM, 
         MeterReaderModel $meter_readerM, 
         PaymentDetailModel $pay_detailM,
+        PaymentModel $payM,
         UserModel $user,
         SMSModel $smsM
     )
@@ -42,6 +45,7 @@ class MeterController extends Controller
         $this->meter_readerM = new $meter_readerM;
         $this->pay_detailM = new $pay_detailM;
         $this->smsM = new $smsM;
+        $this->payM = new $payM;
 
         $this->middleware(function ($request, $next){
             if(!session('user_logged')){
@@ -305,7 +309,13 @@ class MeterController extends Controller
         $record = $this->meter_readM->get_meter_reading_by_id($reading_id);
         $reading_id = $record->reading_id;
         $cus_id = $record->cus_id;
-        $arrears = $this->meter_readM->calculate_prev_unpaid($reading_id,$cus_id);
+
+        $check_pay = $this->payM->get_pay_by_reading_id_custom($reading_id);
+        if ($check_pay) {
+            $arrears =  $check_pay->total_trans_arrears_amount;
+        }else{
+            $arrears = $this->meter_readM->calculate_prev_unpaid($reading_id,$cus_id);
+        }
         $previous_record = $this->meter_readM->get_previous_meter_reading($reading_id,$cus_id);
         // printx($previous_record);
         $data = array(
@@ -323,7 +333,11 @@ class MeterController extends Controller
         foreach($records as $col) {
             $reading_id = $col->reading_id;
             $cus_id = $col->cus_id;
-            $arrears = $this->meter_readM->calculate_prev_unpaid($reading_id,$cus_id);
+            if ($check_pay) {
+                $arrears =  $check_pay->total_trans_arrears_amount;
+            }else{
+                $arrears = $this->meter_readM->calculate_prev_unpaid($reading_id,$cus_id);
+            }
             $previous_record = $this->meter_readM->get_previous_meter_reading($reading_id,$cus_id);
             $infos[] = array(
                 'record'    => $col,
@@ -345,7 +359,11 @@ class MeterController extends Controller
         foreach($records as $col) {
             $reading_id = $col->reading_id;
             $cus_id = $col->cus_id;
-            $arrears = $this->meter_readM->calculate_prev_unpaid($reading_id,$cus_id);
+            if ($check_pay) {
+                $arrears =  $check_pay->total_trans_arrears_amount;
+            }else{
+                $arrears = $this->meter_readM->calculate_prev_unpaid($reading_id,$cus_id);
+            }
             $previous_record = $this->meter_readM->get_previous_meter_reading($reading_id,$cus_id);
             $infos[] = array(
                 'record'    => $col,

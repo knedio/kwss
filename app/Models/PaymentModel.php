@@ -122,6 +122,17 @@ class PaymentModel extends Model
         ->first();
         return $results;
     }
+
+    public function get_pay_by_reading_id_custom($reading_id)
+    {
+        $results = \DB::table($this->tbl_name.' as pay')
+        ->leftJoin('tbl_payment_details as paydetail', 'paydetail.pay_id', '=', 'pay.pay_id')
+        ->leftJoin('tbl_employee as emp', 'pay.emp_id', '=', 'emp.emp_id')
+        ->where('paydetail.reading_id',$reading_id)
+        ->select('paydetail.*','pay.*','emp.*',\DB::raw('SUM(paydetail.trans_payment) as trans_payment'),\DB::raw('SUM(paydetail.trans_arrears_amount) as total_trans_arrears_amount'))
+        ->first();
+        return $results;
+    }
     
     public function add_payment($data)
     {
