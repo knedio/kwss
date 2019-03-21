@@ -424,7 +424,7 @@ class MeterController extends Controller
 
                         $sendMessageRequest = new SendMessageRequest([
                             'phoneNumber' => '+63'.$cus_mobile_no,
-                            'message' => '[Note: KWSS Advisory] Hello '.$cus_lastname."'s, we did our water reading ".date('Y-m-d',strtotime($reading_date)).' , the due date is '.$due_date.' and the water bill is '.$record->reading->reading_amount.' and the other payment is '.$record->reading->reading_other_payment.'. Thank you and have a nice day.',
+                            'message' => '[Note: KWSS Advisory] Hello '.$cus_lastname."'s, we did our water reading ".date('Y-m-d',strtotime($reading_date)).' , the due date is '.$due_date.' and the water bill is '.$record->reading->reading_amount.' and the other payment is '.$record->reading->reading_other_payment ?: '0.00'.'. Thank you and have a nice day.',
                             'deviceId' => $deviceId
                         ]);
                         
